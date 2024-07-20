@@ -18,11 +18,26 @@ type Student struct {
 
 func main() {
 	// Read database connection details from environment variables set by Railway
-	host := os.Getenv("PGHOST")
-	port := os.Getenv("PGPORT")
-	user := os.Getenv("PGUSER")
-	password := os.Getenv("PGPASSWORD")
-	dbname := os.Getenv("PGNAME")
+	host, ok := os.LookupEnv("PGHOST")
+	if !ok {
+		log.Fatal("PGHOST environment variable not set")
+	}
+	port, ok := os.LookupEnv("PGPORT")
+	if !ok {
+		log.Fatal("PGPORT environment variable not set")
+	}
+	user, ok := os.LookupEnv("PGUSER")
+	if !ok {
+		log.Fatal("PGUSER environment variable not set")
+	}
+	password, ok := os.LookupEnv("PGPASSWORD")
+	if !ok {
+		log.Fatal("PGPASSWORD environment variable not set")
+	}
+	dbname, ok := os.LookupEnv("PGNAME")
+	if !ok {
+		log.Fatal("PGNAME environment variable not set")
+	}
 
 	// Construct the connection string
 	connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
